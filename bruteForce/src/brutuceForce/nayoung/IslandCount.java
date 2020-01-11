@@ -3,13 +3,13 @@ package brutuceForce.nayoung;
 import java.util.Scanner;
 
 /**
- * @author hny48
- * boj 4963 섬의 개수를 구하는 문제 <pre>
+ * @author hny48 boj 4963 섬의 개수를 구하는 문제
+ * <pre>
  * 조건: 상, 하, 좌, 우, 대각선으로 땅이 있다면 이동할 수 있다. -> 이동할 수 있으면 같은 섬.
  * 입력: 1이면 땅, 0이면 바다
  */
 public class IslandCount {
-	
+
 	// 대각선 방향 4개, 상, 하, 좌, 우
 	public static int[] dx = { -1, -1, 1, 1, -1, 1, 0, 0 };
 	public static int[] dy = { -1, 1, -1, 1, 0, 0, -1, 1 };
@@ -57,35 +57,11 @@ public class IslandCount {
 
 	/**
 	 * 
-	 * @param beforeX 현재 x좌표
-	 * @param beforeY 현재 y좌표
-	 * @param afterX 이동할 x좌표
-	 * @param afterY 이동할 y좌표
-	 * @return
-	 */
-	public static boolean isNearBy(int beforeX, int beforeY, int afterX, int afterY) {
-		int tempX = 0;
-		int tempY = 0;
-
-		for (int i = 0; i < 8; i++) {
-			tempX = dx[i] + afterX;
-			tempY = dy[i] + afterY;
-			if (tempX != beforeX || tempY != beforeY) {
-				continue;
-			}
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param map 땅과 바다의 위치를 담은 배열
+	 * @param map     땅과 바다의 위치를 담은 배열
 	 * @param beforeX 현재 x좌표
 	 * @param beforeY 현재 Y좌표
-	 * @param h x의 최대 값
-	 * @param w y의 최대 값
+	 * @param h       x의 최대 값
+	 * @param w       y의 최대 값
 	 */
 	public static void dfs(int[][] map, int beforeX, int beforeY, int h, int w) {
 		int afterX = -1;
@@ -100,14 +76,7 @@ public class IslandCount {
 				continue;
 			}
 
-			// afterX, afterX가 beforeX, afterY의 
-			// 상, 하, 좌, 우, 대각선에 해당하는 곳이면
-			if (isNearBy(beforeX, beforeY, afterX, afterX)) {
-				visited[afterX][afterY] = visited[beforeX][beforeY];
-			} else {
-				visited[afterX][afterY] = ++visited[beforeX][beforeY];
-				islandCount = visited[beforeX][beforeY];
-			}
+			visited[afterX][afterY] = visited[beforeX][beforeY];
 
 			dfs(map, afterX, afterY, h, w);
 		}
